@@ -65,11 +65,19 @@ function TokenFileWebIdentityCredentials:refresh()
     return nil, "failed reading token file: " .. err
   end
 
+  error("1111111: " .. tostring(token))
+  error("22222: " .. tostring(self.role_arn))
+  error("33333: " .. tostring(self.session_name))
+
+
   local response, err = self.sts:assumeRoleWithWebIdentity {
     RoleArn = self.role_arn,
     RoleSessionName = self.session_name,
     WebIdentityToken = token
   }
+
+  error("4444444: " .. response.status)
+
 
   if not response then
     return nil, "Request for token data failed: " .. tostring(err)
