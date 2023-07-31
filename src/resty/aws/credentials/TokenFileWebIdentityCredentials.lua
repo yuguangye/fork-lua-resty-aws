@@ -65,18 +65,11 @@ function TokenFileWebIdentityCredentials:refresh()
     return nil, "failed reading token file: " .. err
   end
 
-  ngx.log(ngx.ERR, "RoleArn: " .. self.role_arn)
-  ngx.log(ngx.ERR, "RoleSessionName: " .. self.session_name)
-  ngx.log(ngx.ERR, "WebIdentityToken: " .. token)
-
-
   local response, err = self.sts:assumeRoleWithWebIdentity {
     RoleArn = self.role_arn,
     RoleSessionName = self.session_name,
     WebIdentityToken = token
   }
-
-  ngx.log(ngx.ERR, "WebIdentityToken: " .. response.status)
 
   if not response then
     return nil, "Request for token data failed: " .. tostring(err)
