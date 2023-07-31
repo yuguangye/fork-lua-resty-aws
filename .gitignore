@@ -44,4 +44,3 @@ delete-me
 
 # generated files
 *.rockspec
-src/resty/aws/raw-api
